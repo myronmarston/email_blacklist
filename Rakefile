@@ -10,6 +10,8 @@ begin
     gem.email = "myron.marston@gmail.com"
     gem.homepage = "http://github.com/myronmarston/email_blacklist"
     gem.authors = ["Myron Marston"]
+    gem.add_dependency 'mynyml-override'
+    gem.add_dependency 'actionmailer'
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

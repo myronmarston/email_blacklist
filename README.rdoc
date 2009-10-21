@@ -7,6 +7,11 @@ This is useful in a variety of situations:
 * You can stop emails from being sent to users who have deactivated their accounts with your app.
 * Any other reason you might want to stop emails from being sent...
 
+When an email address is blacklisted, no ActionMailer emails will be sent to it, regardless of
+if the email addresses is used for the to, cc or bcc fields.  However, if there are additional
+email addresses on the same email that are not blacklisted, the email will still be sent to them.
+If all email addresses for a particular email are blacklisted, the email will not be sent at all.
+
 == Installation
   gem install email_blacklist
 

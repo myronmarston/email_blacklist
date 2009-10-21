@@ -1,6 +1,24 @@
 = email_blacklist
 
-Description goes here.
+Blacklist particular email addresses so ActionMailer doesn't deliver emails to them.
+
+This is useful in a variety of situations:
+* You can blacklist an entire domain.
+* You can stop emails from being sent to users who have deactivated their accounts with your app.
+* Any other reason you might want to stop emails from being sent...
+
+== Installation
+  gem install email_blacklist
+
+== Configuration
+
+Blacklisting is as easy as:
+
+  EmailBlacklist::Config.blacklist do |email_address|
+    # return true if emails should not be sent to this email address.
+  end
+
+The block you provide will be called with every email address used by any ActionMailer email.  This includes to, cc and bcc addresses.
 
 == Note on Patches/Pull Requests
  
@@ -9,8 +27,7 @@ Description goes here.
 * Add tests for it. This is important so I don't break it in a
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright

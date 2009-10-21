@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "email_blacklist"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Ensure no emails are ever sent to particular email addresses.}
+    gem.description = %Q{Blacklist particular email addresses so ActionMailer doesn't deliver emails to them.}
     gem.email = "myron.marston@gmail.com"
     gem.homepage = "http://github.com/myronmarston/email_blacklist"
     gem.authors = ["Myron Marston"]

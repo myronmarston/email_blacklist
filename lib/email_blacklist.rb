@@ -5,6 +5,8 @@ module EmailBlacklist
   ADDRESS_TYPES = [:to, :cc, :bcc].freeze
 
   class Config
+    @@blacklist_block = nil
+
     class << self
       def blacklist(&blk)
         @@blacklist_block = blk
@@ -31,7 +33,7 @@ ActionMailer::Base.class_eval do
         mail.send("#{address_type}=", addresses)
       end
 
-      return if all_addresses.flatten.compact.empty?
+      return mail if all_addresses.flatten.compact.empty?
     end
 
     super(mail)

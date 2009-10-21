@@ -65,11 +65,15 @@ describe ActionMailer do
     context "sending an email to just 'bob@blacklisted.org'" do
       before(:each) do
         ActionMailer::Base.deliveries.clear
-        TestMailer.deliver_email({:to => 'bob@blacklisted.org'})
+        @email = TestMailer.deliver_email({:to => 'bob@blacklisted.org'})
       end
 
       it "should not send the email at all" do
         ActionMailer::Base.deliveries.should == []
+      end
+
+      it "should still return the email" do
+        @email.should_not be_nil
       end
     end
   end

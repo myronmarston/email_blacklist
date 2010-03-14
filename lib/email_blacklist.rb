@@ -1,5 +1,4 @@
 require 'action_mailer'
-require 'override'
 
 module EmailBlacklist
   ADDRESS_TYPES = [:to, :cc, :bcc].freeze
@@ -18,24 +17,31 @@ module EmailBlacklist
       end
     end
   end
-end
 
-ActionMailer::Base.class_eval do
-  override :deliver!
-  def deliver!(mail = @mail)
-    if mail
-      all_addresses = []
-
-      EmailBlacklist::ADDRESS_TYPES.each do |address_type|
-        addresses = mail.send(address_type)
-        addresses.reject! { |a| EmailBlacklist::Config.blacklisted?(a) } if addresses
-        all_addresses << addresses
-        mail.send("#{address_type}=", addresses)
-      end
-
-      return mail if all_addresses.flatten.compact.empty?
+  module ActionMailer
+    def new(*args, &block)
+      super.extend Extension
     end
 
-    super(mail)
+    module Extension
+      def deliver!(mail = @mail)
+        if mail
+          all_addresses = []
+
+          EmailBlacklist::ADDRESS_TYPES.each do |address_type|
+            addresses = mail.send(address_type)
+            addresses.reject! { |a| EmailBlacklist::Config.blacklisted?(a) } if addresses
+            all_addresses << addresses
+            mail.send("#{address_type}=", addresses)
+          end
+
+          return mail if all_addresses.flatten.compact.empty?
+        end
+
+        super(mail)
+      end
+    end
   end
 end
+
+ActionMailer::Base.extend EmailBlacklist::ActionMailer

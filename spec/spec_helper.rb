@@ -1,6 +1,6 @@
 require 'rubygems'
 $LOAD_PATH << File.join(File.dirname(__FILE__), *%w[.. vendor ginger lib])
-require 'ginger'
+require 'ginger' if ENV['USE_GINGER']
 require 'email_blacklist'
 require 'spec'
 require 'spec/autorun'

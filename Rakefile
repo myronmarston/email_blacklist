@@ -47,6 +47,7 @@ end
 
 desc 'Run ginger tests'
 task :ginger do
+  ENV['USE_GINGER'] = 'true'
   $LOAD_PATH << File.join(*%w[vendor ginger lib])
   ARGV.clear
   ARGV << 'spec'
